@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>TITLE</title>
+  {% load static %}
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet"
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<style>
+	
+.glow {
+  font-size: 25px;
+  color: #fff;
+  text-align: center;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+  }
+  
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+  }
+}
+.back{
+  background-image:url("{% static 'image/img3.jpg' %}");
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-attachment: fixed;
+}
+.white{
+color:white;
+}
+.nspace{
+margin:15px 15px 30px 30px;
+padding:9px 10px;
+background: cyan;
+width:500px
+}
+.space{
+margin:10px 30px;
+padding:10px 10px;
+background: border-box;
+width:500px
+}
+.gap{
+padding:10px 20px;
+}
+</style>
+  
+</head>
+
+<body class="back">
+ <div>
+	<div class="jumbotron">
+	<h1 style="text-align:center">FETAL HEALTH  CLASSIFICATION USING ML</h1>
+	
+	</div>
+     <!-- Main Input For Receiving Query to our ML -->
+    <form class="form-group" action="{% url 'predict' %}"method="post">
+    	{% csrf_token %}
+		<div class="row">
+		<div class="gap col-md-6 ">
+		<label class="white" for="">Class</label>
+		<input type="number" class="space form-control" step="0.00001" name="Class" placeholder="Class" required="required" /><br>
+
+		<label class="white"  for="">Suspect Pattern</label>
+		<input type="number" class="space form-control" step="0.00001" name="SUSP" placeholder="SUSP" required="required" /><br>
+
+		<label class="white"  for="">Largely Decelerative Pattern</label>
+		<input type="number" class="space form-control" step="0.000001" name="LD" placeholder="LD" required="required" /><br>
+
+		<label class="white" for="">Flat-Sinusoidal Pattern</label>
+		<input type="number" class="space form-control" step="0.0000001" name="Su" placeholder="FS" required="required" /><br>
+
+
+		<label class="white"  for="">End Instant</label>		
+		<input type="number" class="space form-control" step="0.00001" name="Rbc" placeholder="E" required="required" /><br>
+		</div>
+
+<div class="gap col-md-6">
+
+		<label class="white"  for="">REM Sleep</label>		
+		<input type="number" class="space form-control" step="0.01" name="B" placeholder="B" required="required" /><br>
+
+
+		<label class="white"  for="">Prolongued Decelerations</label>		
+		<input type="number" class="space form-control" step="0.01" name="DP" placeholder="DP" required="required" /><br>
+
+		<label class="white"  for="">Abnormal Short Term Variability</label>
+		<input type="number" class="space form-control" step="0.01" name="ASTV" placeholder="ASTV" required="required" /><br>
+
+
+		<label class="white"  for="">Histogram Mean</label>
+		<input type="number" class="space form-control" step="0.01" name="MEAN" placeholder="MEAN" required="required" /><br>
+
+		<label class="white"  for="">Abnormal Long Term Variability</label>
+		<input type="number" class="space form-control" step="0.01" name="ALTV" placeholder="ALTV" required="required" /><br>
+		
+</div>
+</div>
+
+<div style="padding:2% 35%">
+  <button type="submit" class="btn btn-success btn-block" style="width:350px;padding:20px">Predict</button>		
+</div>
+      
+    </form>
+
+   <br>
+   <br>
+<div  style="background:black;padding:2% 40%">
+  <h4 class="glow"> {{ prediction_text }}</h4>
+</div>
+ </div>
+
+
+</body>
+</html>
